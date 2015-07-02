@@ -8,6 +8,13 @@
   $('document').ready (
     function (){
     $('#spatialbtn').addClass("active");
+
+    		   var controls = [];
+
+			//var map = L.map('map').setView([36.8395487, -2.45245], 17);
+			//var map = L.map('map').setView([0, 0], 16);
+			$('#map').hide();
+			$('#showOSMbtn').hide();
   });
 </script>
 
@@ -55,10 +62,32 @@
       <div class="modal-body">
         <div class="loader" data-initialize="loader"></div>
       </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
     </div>
   </div>
 </div>
 
+<div class="modal fade" id="showOSM" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      	<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h3 class="modal-title">OSM data</h3>
+      </div>
+      <div class="modal-body">
+      	<code>
+      		<div id="osmData">
+      		</div>
+      	</code>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="container fu-docs-container">
 
@@ -99,7 +128,7 @@
                 </select> 
               </div>
             </div>
-            <button type = "button" id = "btnAjax" onclick = "runningXQueryExample();" class="btn btn-success">Run</button>
+            <button type = "button" id = "btnAjax" onclick = "runningXQueryExample();" class="btn btn-primary">Run</button>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuXQueryShell">
               <h4>Running a XQuery example from a shell</h4>
@@ -127,7 +156,8 @@
                 <div class="step-pane" data-step="2">
                   <h4>Run XQuery query using the selected index</h4>
                   <textarea id = 'query' name = 'query' rows = '10' cols = '80' placeholder = 'XQuery shell i.e. //tags'></textarea><br/>
-                  <button  id = "btnAjax" onclick = "runningXQueryShell();" class="btn btn-success">Run</button><br/>
+                  <button onclick = "$('#query').val('');" class="btn btn-warning">Clear</button>
+                  <button  id = "btnAjax" onclick = "runningXQueryShell();" class="btn btn-primary">Run</button><br/>
                   
                 </div>
               </div>
@@ -205,12 +235,15 @@
           </div>
         </div>
       </div>
-
-      <textarea disabled id = 'resultado' name = 'query' rows = '10' cols = '80' placeholder = 'Resultado'></textarea>
+			<br/>
       <div id="map" style="width: 600px; height: 400px"></div>
+      <br/>
+      <button id="showOSMbtn" class="btn btn-primary" data-toggle="modal" data-target="#showOSM">Show OSM data</button><br/>
     </div>
   </div>
 </div>
+
+
 
 
 <script language="JavaScript" type="text/javascript">
@@ -227,6 +260,10 @@ var map = L.map('map').setView([36.8395487, -2.45245], 16);
       id: 'examples.map-i875mjb7'
     }).addTo(map); 
 
+$(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+   $('#map').hide();
+   $('#showOSMbtn').hide();
+})
 
       function databaseListing(){
 
@@ -305,16 +342,6 @@ var map = L.map('map').setView([36.8395487, -2.45245], 16);
 
    <script language="JavaScript" type="text/javascript">
 
-  $('document').ready (
-    function (){
-		   var controls = [];
-
-			//var map = L.map('map').setView([36.8395487, -2.45245], 17);
-			var map = L.map('map').setView([0, 0], 16);
-			$('#map').hide();
-  });
-
-
   function runningXQueryExample(){
 
     var $example = $('#spatialQueries').val();
@@ -332,9 +359,38 @@ var map = L.map('map').setView([36.8395487, -2.45245], 16);
     )
     function actualizar(datos){
     	$('#loader').modal('hide');
-      $('#resultado').val(datos);
+      $('#osmData').text(datos);
+      $('#showOSMbtn').show();
+      drawMap(datos);
+      }
+    }
+  
+  function runningXQueryShell(){
 
-          for (z = 0; z < controls.length; z++) {
+    var text = $('#query').val();  
+    var databaseName = $('#database').val();
+
+    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + databaseName + '&textArea=' + encodeURIComponent(text);
+    $('#loader').modal('toggle');
+
+    $.ajax({
+      url: 'elementsFromAPI.php',
+      type: 'GET',
+      data: {url:url},
+      dataType: 'text',
+      success: actualizar
+    }
+    )
+    function actualizar(datos){
+    	$('#loader').modal('hide');
+      $('#osmData').text(datos);
+      $('#showOSMbtn').show();
+      drawMap(datos);
+    } 
+  }
+
+    function drawMap(datos) {
+  	for (z = 0; z < controls.length; z++) {
       map.removeLayer(controls[z]);
     }
 
@@ -383,34 +439,8 @@ var map = L.map('map').setView([36.8395487, -2.45245], 16);
 
           controls.push(firstpolyline);
         })
-      }
-    }
-  </script>
-
-  <script language="JavaScript" type="text/javascript">
-  
-  function runningXQueryShell(){
-
-    var text = $('#query').val();  
-    var databaseName = $('#database').val();
-
-    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + databaseName + '&textArea=' + encodeURIComponent(text);
-    alert(url);
-    $('#loader').modal('toggle');
-
-    $.ajax({
-      url: 'elementsFromAPI.php',
-      type: 'GET',
-      data: {url:url},
-      dataType: 'text',
-      success: actualizar
-    }
-    )
-    function actualizar(datos){
-    	$('#loader').modal('hide');
-      $('#resultado').val(datos);
-    } 
   }
+
   </script>
 
 
