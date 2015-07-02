@@ -213,7 +213,21 @@
 </div>
 
 
-      <script language="JavaScript" type="text/javascript">
+<script language="JavaScript" type="text/javascript">
+
+var controls = [];
+
+var map = L.map('map').setView([36.8395487, -2.45245], 16);
+
+    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+      id: 'examples.map-i875mjb7'
+    }).addTo(map); 
+
+
       function databaseListing(){
 
        var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
@@ -319,8 +333,58 @@
     function actualizar(datos){
     	$('#loader').modal('hide');
       $('#resultado').val(datos);
+
+          for (z = 0; z < controls.length; z++) {
+      map.removeLayer(controls[z]);
     }
-  }
+
+    controls = [];
+
+    $('#map').show();
+
+        L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+          maxZoom: 18,
+          attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+            '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+            'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+          id: 'examples.map-i875mjb7'
+        }).addTo(map);
+
+        var pointList = [];
+
+        // Obtener la primera latitud y longitud que aparece para tomarla como centro del mapa
+        var firstNode = $(datos).find("node").first();
+        var firstLat = firstNode.attr("lat");
+        var firstLon = firstNode.attr("lon");
+
+        map.panTo([firstLat, firstLon]);
+
+        $(datos).find("way").each(function(){
+          pointList = [];
+
+          $(this).find("nd").each(function(){
+
+            var ref = $(this).attr('ref');
+            var elementToFind = 'node[id=' + ref + ']';
+
+            var lat = $(datos).find(elementToFind).attr('lat');
+            var lon = $(datos).find(elementToFind).attr('lon');
+
+            var point = new L.LatLng(lat, lon);
+            pointList.push(point);
+          })
+
+          var firstpolyline = new L.polygon(pointList, {
+            color: "blue",
+            opacity: 0.5
+          });
+
+          firstpolyline.addTo(map);
+
+          controls.push(firstpolyline);
+        })
+      }
+    }
   </script>
 
   <script language="JavaScript" type="text/javascript">
