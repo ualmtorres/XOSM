@@ -58,13 +58,7 @@
             <div class="step-pane" data-step="3">
               <h3>Spatial Index Creation</h3>
 
-              <button type = "button" value = "databaseName" id = "btnAjax" onclick = "indexing();" class="btn btn-success"/>Create Index</button>
-              <!-- 
-              <div class="loader" id = "loader" data-initialize="loader"></div>
-              <div>
-               <textarea disabled id = 'resultado' name = 'query' rows = '2' cols = '80' placeholder = 'Result from Spatial Indexing Process'></textarea>
-             </div>
-           -->
+              <button type = "button" value = "databaseName" id = "btnAjax" onclick = "indexing();" class="btn btn-primary"/>Create Index</button>
            </div>
          </div>
 
@@ -73,9 +67,27 @@
      </div>
 
      <script type="text/javascript">
-     $('#indexingWizard').on('finished.fu.wizard', function (evt, data) {
-        indexing();
-      });
+     $('#indexingWizard').on('changed.fu.wizard', function (evt, data) {
+      switch(data.step) {
+        case 2:
+        if (map.getZoom() < 16) {
+          $('#zoomToLarge').modal('show');
+          $('#indexingWizard').wizard('selectedItem', {
+            step: 1
+          });
+          map.setZoom(16);            
+        }
+        break;
+        case 3:
+        if (jQuery.trim($('#database').val()).length == 0) {
+          $('#emptyTextbox').modal('show');
+          $('#database').val('');
+          $('#indexingWizard').wizard('selectedItem', {
+            step: 2
+          });
+        }
+        break;
+      }});
      </script>
    </div>
  </div>
@@ -181,8 +193,7 @@ function indexing(){
     var southWest = map.getBounds().getSouthWest();
     var northEast = map.getBounds().getNorthEast();
 
-    if (jQuery.trim($('#database').val()).length > 0) {
-      if (map.getZoom() >= 16 && map.getZoom() <= 18) {
+
        var url = 'http://basex.cloudapp.net:8984/rest?run=indexing.xq' + '&databaseName=' + $('#database').val() + '&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat;  
 
        $('#spatialIndexModalTitle').text('Creating Spatial Index ' + $('#database').val());
@@ -199,23 +210,7 @@ function indexing(){
              $('#loader').modal('hide');
          }
       }
-      else {
-        $('#zoomToLarge').modal('show');
-        $('#indexingWizard').wizard('selectedItem', {
-          step: 1
-        });
-        map.setZoom(16);
-      }
-    }
-    else {
-      $('#emptyTextbox').modal('show');
-      $('#database').val('');
-      $('#indexingWizard').wizard('selectedItem', {
-        step: 2
-      });
-    }
-   
-}       
+      
 </script>
 
 <?php
