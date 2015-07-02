@@ -327,9 +327,11 @@
   
   function runningXQueryShell(){
 
-    var $databaseName = $('#database').val();
+    var text = $('#query').val();  
+    var databaseName = $('#database').val();
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + $databaseName;
+    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + databaseName + '&textArea=' + encodeURIComponent(text);
+    alert(url);
     $('#loader').modal('toggle');
 
     $.ajax({
