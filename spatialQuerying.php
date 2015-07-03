@@ -116,7 +116,7 @@ $('document').ready (
                 <div class="input-group">
                   <span class="input-group-addon">Query Example</span>
                   <select name = 'exampleList' id = 'exampleList' class="form-control" 
-                  onclick ="exampleListQuery();">
+                  onclick ="exampleListQuery('spatial');">
                 </select> 
               </div>
             </div>
