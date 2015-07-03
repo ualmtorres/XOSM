@@ -146,7 +146,7 @@
       </div>
       <div class="modal-body">
         <p>
-          Zoom to large. Please, select a smaller zoom.
+          Zoom too large. Please, select a smaller zoom.
         </p>
       </div>
       <div class="modal-footer">
