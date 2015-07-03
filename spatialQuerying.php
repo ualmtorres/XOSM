@@ -4,20 +4,6 @@
 ?>
 
 
-<script language="JavaScript" type="text/javascript">
-  $('document').ready (
-    function (){
-    $('#spatialbtn').addClass("active");
-
-    		   var controls = [];
-
-			//var map = L.map('map').setView([36.8395487, -2.45245], 17);
-			//var map = L.map('map').setView([0, 0], 16);
-			$('#map').hide();
-			$('#showOSMbtn').hide();
-  });
-</script>
-
 <!-- Modal -->
 <div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -264,152 +250,23 @@ osm:searchTags(?,"school")))
   </div>
 </div>
 
-
 <script language="JavaScript" type="text/javascript">
 
 var controls = [];
 
 var map = L.map('map').setView([36.8395487, -2.45245], 16);
 
-    L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
-        '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="http://mapbox.com">Mapbox</a>',
-      id: 'examples.map-i875mjb7'
-    }).addTo(map); 
+L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
+  maxZoom: 18,
+  attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+  '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+  'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+  id: 'examples.map-i875mjb7'
+}).addTo(map); 
 
-$(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
-   $('#map').hide();
-   $('#showOSMbtn').hide();
-})
 
-      function databaseListing(){
-
-       var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
-
-       $.ajax({
-        url: 'elementsFromAPI.php',
-        type: 'GET',
-        data: {url:url},
-        dataType: 'text',
-        success: actualizar
-      })
-       function actualizar(datos){
-
-        var XML = datos; 
-
-        var xmlDoc = $.parseXML( XML );
-        var $xml = $( xmlDoc );
-        var $database = $xml.find('database');
-        var $selection = $('#database');
-
-        $selection.empty();
-
-        $database.each(function(){
-         var $elem = $(this);
-         var $databaseName = $elem.find('name').text();	        
-         $('#database').append(
-          $('<option />')
-          .text($databaseName)
-          .val($databaseName)
-          );      	
-       }
-       )
-      } 
-    }
-    </script>
-
-    <script language="JavaScript" type="text/javascript">
-    function spatialQueries(){
-
-     var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
-
-     $.ajax({
-      url: 'elementsFromAPI.php',
-      type: 'GET',
-      data: {url:url},
-      dataType: 'text',
-      success: actualizar
-    })
-     function actualizar(datos){
-
-       var XML = datos; 
-       var xmlDoc = $.parseXML( XML );
-       var $xml = $( xmlDoc );
-
-       var $spatialQueries = $xml.find('spatialExample');
-       var $selection = $('#spatialQueries');
-
-       $selection.empty();
-
-       $spatialQueries.each(function(){
-
-         var $elem = $(this);
-         var $idQuery = $elem.find('id').text();
-         var $descriptionQuery = $elem.find('description').text();	        
-         $selection.append(
-          $('<option />')
-          .text($descriptionQuery)
-          .val($idQuery)
-          );      	
-       }
-       ) 
-     } 
-   }
-   </script>
-
-   <script language="JavaScript" type="text/javascript">
-
-  function runningXQueryExample(){
-
-    var $example = $('#spatialQueries').val();
-
-    var url = 'http://basex.cloudapp.net:8984/rest?run=' + $example;
-    $('#loader').modal('toggle');
-
-    $.ajax({
-      url: 'elementsFromAPI.php',
-      type: 'GET',
-      data: {url:url},
-      dataType: 'text',
-      success: actualizar
-    }
-    )
-    function actualizar(datos){
-    	$('#loader').modal('hide');
-      $('#osmData').text(datos);
-      $('#showOSMbtn').show();
-      drawMap(datos);
-      }
-    }
-  
-  function runningXQueryShell(){
-
-    var text = $('#query').val();  
-    var databaseName = $('#database').val();
-
-    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + databaseName + '&textArea=' + encodeURIComponent(text);
-    $('#loader').modal('toggle');
-
-    $.ajax({
-      url: 'elementsFromAPI.php',
-      type: 'GET',
-      data: {url:url},
-      dataType: 'text',
-      success: actualizar
-    }
-    )
-    function actualizar(datos){
-    	$('#loader').modal('hide');
-      $('#osmData').text(datos);
-      $('#showOSMbtn').show();
-      drawMap(datos);
-    } 
-  }
-
-    function drawMap(datos) {
-  	for (z = 0; z < controls.length; z++) {
+function drawMap(datos) {
+    for (z = 0; z < controls.length; z++) {
       map.removeLayer(controls[z]);
     }
 
@@ -460,16 +317,33 @@ $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
         })
   }
 
-  </script>
 
 
-     <script type="text/javascript">
-
-     function showModalAlert(alertTitle, alertBody) {
+    function showModalAlert(alertTitle, alertBody) {
       $('#modalAlertTitle').text(alertTitle);
       $('#modalAlertBody').text(alertBody);
       $('#modalAlert').modal('show');
      }
+</script>
+
+
+<script language="JavaScript" type="text/javascript">
+
+$('document').ready (
+  function (){
+    $('#spatialbtn').addClass("active");
+
+    $('#map').hide();
+    $('#showOSMbtn').hide();
+
+
+    $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
+     $('#map').hide();
+     $('#showOSMbtn').hide();
+   })
+  });
+
+
 
      $('#XQueryShell').on('actionclicked.fu.wizard', function (evt, data) {
 
@@ -491,7 +365,6 @@ $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
 
      $('#XQueryShell').on('finished.fu.wizard', function (evt, data) {
         if ($('#query').val() == '') {
-          //$('#emptyQuery').modal('show');
           showModalAlert('XQuery code is missing', 'XQuery code must me typed');
         }
         else {
@@ -501,7 +374,6 @@ $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
 
      $('#runXQueryExamplebtn').click(function() {
       if ($('#spatialQueries').val() == null) {
-          //$('#emptySpatialQueries').modal('show');
           showModalAlert('Example not selected', 'An example must be selected');
       }
       else {
@@ -511,15 +383,133 @@ $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
  
      $('#runXQueryShellbtn').click(function() {
       if ($('#query').val() == '') {
-          //$('#emptyQuery').modal('show');
           showModalAlert('XQuery code is missing', 'XQuery code must me typed');
       }
       else {
         runningXQueryShell();
       }
     });
-     </script>
 
+
+      function databaseListing(){
+
+       var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
+
+       $.ajax({
+        url: 'elementsFromAPI.php',
+        type: 'GET',
+        data: {url:url},
+        dataType: 'text',
+        success: actualizar
+      })
+       function actualizar(datos){
+
+        var XML = datos; 
+
+        var xmlDoc = $.parseXML( XML );
+        var $xml = $( xmlDoc );
+        var $database = $xml.find('database');
+        var $selection = $('#database');
+
+        $selection.empty();
+
+        $database.each(function(){
+         var $elem = $(this);
+         var $databaseName = $elem.find('name').text();	        
+         $('#database').append(
+          $('<option />')
+          .text($databaseName)
+          .val($databaseName)
+          );      	
+       }
+       )
+      } 
+    }
+
+    function spatialQueries(){
+
+     var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
+
+     $.ajax({
+      url: 'elementsFromAPI.php',
+      type: 'GET',
+      data: {url:url},
+      dataType: 'text',
+      success: actualizar
+    })
+     function actualizar(datos){
+
+       var XML = datos; 
+       var xmlDoc = $.parseXML( XML );
+       var $xml = $( xmlDoc );
+
+       var $spatialQueries = $xml.find('spatialExample');
+       var $selection = $('#spatialQueries');
+
+       $selection.empty();
+
+       $spatialQueries.each(function(){
+
+         var $elem = $(this);
+         var $idQuery = $elem.find('id').text();
+         var $descriptionQuery = $elem.find('description').text();	        
+         $selection.append(
+          $('<option />')
+          .text($descriptionQuery)
+          .val($idQuery)
+          );      	
+       }
+       ) 
+     } 
+   }
+
+  function runningXQueryExample(){
+
+    var $example = $('#spatialQueries').val();
+
+    var url = 'http://basex.cloudapp.net:8984/rest?run=' + $example;
+    $('#loader').modal('toggle');
+
+    $.ajax({
+      url: 'elementsFromAPI.php',
+      type: 'GET',
+      data: {url:url},
+      dataType: 'text',
+      success: actualizar
+    }
+    )
+    function actualizar(datos){
+    	$('#loader').modal('hide');
+      $('#osmData').text(datos);
+      $('#showOSMbtn').show();
+      drawMap(datos);
+      }
+    }
+  
+  function runningXQueryShell(){
+
+    var text = $('#query').val();  
+    var databaseName = $('#database').val();
+
+    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + databaseName + '&textArea=' + encodeURIComponent(text);
+    $('#loader').modal('toggle');
+
+    $.ajax({
+      url: 'elementsFromAPI.php',
+      type: 'GET',
+      data: {url:url},
+      dataType: 'text',
+      success: actualizar
+    }
+    )
+    function actualizar(datos){
+    	$('#loader').modal('hide');
+      $('#osmData').text(datos);
+      $('#showOSMbtn').show();
+      drawMap(datos);
+    } 
+  }
+  </script>
 
 
 
