@@ -155,7 +155,7 @@
 
                 <div class="step-pane" data-step="2">
                   <h4>Run XQuery query using the selected index</h4>
-                  <textarea id = 'query' name = 'query' rows = '10' cols = '80' placeholder = 'XQuery shell i.e. //tags'></textarea><br/>
+                  <textarea id = 'query' name = 'query' rows = '10' cols = '80' placeholder = 'XQuery shell - Examples Tab provides some testing examples'></textarea><br/>
                   <button onclick = "$('#query').val('');" class="btn btn-warning">Clear</button>
                   <button  id = "btnAjax" onclick = "runningXQueryShell();" class="btn btn-primary">Run</button><br/>
                   
@@ -442,7 +442,6 @@ $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
   }
 
   </script>
-
 
 <?php
 include ('footer.php');
