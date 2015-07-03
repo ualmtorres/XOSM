@@ -19,7 +19,7 @@
 </script>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -101,7 +101,7 @@
         <p>Make queries on OpenStreetMap using Spatial operators
 
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal">
           Show Info
         </button>
         </p>
@@ -128,12 +128,12 @@
                 </select> 
               </div>
             </div>
-            <button type = "button" id = "btnAjax" onclick = "runningXQueryExample();" class="btn btn-primary">Run</button>
+            <button type = "button" id = "runXQueryExamplebtn" class="btn btn-primary">Run</button>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuXQueryShell">
               <h4>Running a XQuery example from a shell</h4>
 
-              <div class="wizard" data-initialize="wizard" id="wizardIllustration">
+              <div class="wizard" data-initialize="wizard" id="XQueryShell">
                 <ul class="steps">
                   <li data-step="1" data-name="campaign" class="active"><span class="badge">1</span>Select Index<span class="chevron"></span></li>
                   <li data-step="2"><span class="badge">2</span>Run XQuery<span class="chevron"></span></li>
@@ -157,7 +157,7 @@
                   <h4>Run XQuery query using the selected index</h4>
                   <textarea id = 'query' name = 'query' rows = '10' cols = '80' placeholder = 'XQuery shell - Examples Tab provides some testing examples'></textarea><br/>
                   <button onclick = "$('#query').val('');" class="btn btn-warning">Clear</button>
-                  <button  id = "btnAjax" onclick = "runningXQueryShell();" class="btn btn-primary">Run</button><br/>
+                  <button  id = "runXQueryShellbtn" class="btn btn-primary">Run</button><br/>
                   
                 </div>
               </div>
@@ -243,7 +243,26 @@ osm:searchTags(?,"school")))
   </div>
 </div>
 
-
+<!-- Modal -->
+<div class="modal fade" id="modalAlert" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">
+          <div id="modalAlertTitle"></div>
+        </h3>
+      </div>
+      <div class="modal-body">
+        <p>
+          <div id="modalAlertBody"></div>
+        </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 <script language="JavaScript" type="text/javascript">
@@ -442,6 +461,67 @@ $(document).on( 'shown.bs.tab', 'a[data-toggle="tab"]', function (e) {
   }
 
   </script>
+
+
+     <script type="text/javascript">
+
+     function showModalAlert(alertTitle, alertBody) {
+      $('#modalAlertTitle').text(alertTitle);
+      $('#modalAlertBody').text(alertBody);
+      $('#modalAlert').modal('show');
+     }
+
+     $('#XQueryShell').on('actionclicked.fu.wizard', function (evt, data) {
+
+       $('#map').hide();
+       $('#showOSMbtn').hide();
+
+      switch(data.step) {
+        case 1:
+        if ($('#database').val() == null) {
+          //$('#emptySpatialIndex').modal('show');
+          showModalAlert('Spatial Index not selected', 'A Spatial Index must be selected');
+          $('#XQueryShell').wizard('selectedItem', {
+            step: 1
+          });  
+          evt.preventDefault();     
+        }
+        break;
+      }});
+
+     $('#XQueryShell').on('finished.fu.wizard', function (evt, data) {
+        if ($('#query').val() == '') {
+          //$('#emptyQuery').modal('show');
+          showModalAlert('XQuery code is missing', 'XQuery code must me typed');
+        }
+        else {
+          runningXQueryShell();
+        }
+      });  
+
+     $('#runXQueryExamplebtn').click(function() {
+      if ($('#spatialQueries').val() == null) {
+          //$('#emptySpatialQueries').modal('show');
+          showModalAlert('Example not selected', 'An example must be selected');
+      }
+      else {
+        runningXQueryExample();
+      }
+    });
+ 
+     $('#runXQueryShellbtn').click(function() {
+      if ($('#query').val() == '') {
+          //$('#emptyQuery').modal('show');
+          showModalAlert('XQuery code is missing', 'XQuery code must me typed');
+      }
+      else {
+        runningXQueryShell();
+      }
+    });
+     </script>
+
+
+
 
 <?php
 include ('footer.php');
