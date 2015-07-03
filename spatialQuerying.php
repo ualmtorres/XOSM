@@ -265,7 +265,7 @@ L.tileLayer('https://{s}.tiles.mapbox.com/v3/{id}/{z}/{x}/{y}.png', {
 }).addTo(map); 
 
 
-function drawMap(datos) {
+function drawMap(data) {
     for (z = 0; z < controls.length; z++) {
       map.removeLayer(controls[z]);
     }
@@ -285,13 +285,13 @@ function drawMap(datos) {
         var pointList = [];
 
         // Obtener la primera latitud y longitud que aparece para tomarla como centro del mapa
-        var firstNode = $(datos).find("node").first();
+        var firstNode = $(data).find("node").first();
         var firstLat = firstNode.attr("lat");
         var firstLon = firstNode.attr("lon");
 
         map.panTo([firstLat, firstLon]);
 
-        $(datos).find("way").each(function(){
+        $(data).find("way").each(function(){
           pointList = [];
 
           $(this).find("nd").each(function(){
@@ -299,8 +299,8 @@ function drawMap(datos) {
             var ref = $(this).attr('ref');
             var elementToFind = 'node[id=' + ref + ']';
 
-            var lat = $(datos).find(elementToFind).attr('lat');
-            var lon = $(datos).find(elementToFind).attr('lon');
+            var lat = $(data).find(elementToFind).attr('lat');
+            var lon = $(data).find(elementToFind).attr('lon');
 
             var point = new L.LatLng(lat, lon);
             pointList.push(point);
@@ -400,26 +400,26 @@ $('document').ready (
         type: 'GET',
         data: {url:url},
         dataType: 'text',
-        success: actualizar
+        success: refresh
       })
-       function actualizar(datos){
+       function refresh(data){
 
-        var XML = datos; 
+        var returnedXML = data; 
 
-        var xmlDoc = $.parseXML( XML );
-        var $xml = $( xmlDoc );
-        var $database = $xml.find('database');
-        var $selection = $('#database');
+        var xmlParsed = $.parseXML( returnedXML );
+        var xmlDoc = $( xmlParsed );
+        var database = xmlDoc.find('database');
+        var selection = $('#database');
 
-        $selection.empty();
+        selection.empty();
 
-        $database.each(function(){
-         var $elem = $(this);
-         var $databaseName = $elem.find('name').text();	        
+        database.each(function(){
+         var elem = $(this);
+         var databaseName = elem.find('name').text();	        
          $('#database').append(
           $('<option />')
-          .text($databaseName)
-          .val($databaseName)
+          .text(databaseName)
+          .val(databaseName)
           );      	
        }
        )
@@ -435,28 +435,28 @@ $('document').ready (
       type: 'GET',
       data: {url:url},
       dataType: 'text',
-      success: actualizar
+      success: refresh
     })
-     function actualizar(datos){
+     function refresh(data){
 
-       var XML = datos; 
-       var xmlDoc = $.parseXML( XML );
-       var $xml = $( xmlDoc );
+       var returnedXML = data; 
+       var xmlParsed = $.parseXML( returnedXML );
+       var xmlDoc = $( xmlParsed );
 
-       var exampleList = $xml.find('spatialExample');
-       var $selection = $('#exampleList');
+       var exampleList = xmlDoc.find('spatialExample');
+       var selection = $('#exampleList');
 
-       $selection.empty();
+       selection.empty();
 
        exampleList.each(function(){
 
-         var $elem = $(this);
-         var $idQuery = $elem.find('id').text();
-         var $descriptionQuery = $elem.find('description').text();	        
-         $selection.append(
+         var elem = $(this);
+         var idQuery = elem.find('id').text();
+         var descriptionQuery = elem.find('description').text();	        
+         selection.append(
           $('<option />')
-          .text($descriptionQuery)
-          .val($idQuery)
+          .text(descriptionQuery)
+          .val(idQuery)
           );      	
        }
        ) 
@@ -475,14 +475,14 @@ $('document').ready (
       type: 'GET',
       data: {url:url},
       dataType: 'text',
-      success: actualizar
+      success: refresh
     }
     )
-    function actualizar(datos){
+    function refresh(data){
     	$('#loader').modal('hide');
-      $('#osmData').text(datos);
+      $('#osmData').text(data);
       $('#showOSMbtn').show();
-      drawMap(datos);
+      drawMap(data);
       }
     }
   
@@ -499,14 +499,14 @@ $('document').ready (
       type: 'GET',
       data: {url:url},
       dataType: 'text',
-      success: actualizar
+      success: refresh
     }
     )
-    function actualizar(datos){
+    function refresh(data){
     	$('#loader').modal('hide');
-      $('#osmData').text(datos);
+      $('#osmData').text(data);
       $('#showOSMbtn').show();
-      drawMap(datos);
+      drawMap(data);
     } 
   }
   </script>
