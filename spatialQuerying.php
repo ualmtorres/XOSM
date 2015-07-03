@@ -109,8 +109,8 @@
               <div class = "form-group">
                 <div class="input-group">
                   <span class="input-group-addon">Query Example</span>
-                  <select name = 'spatialQueries' id = 'spatialQueries' class="form-control" 
-                  onclick ="spatialQueries();">
+                  <select name = 'exampleList' id = 'exampleList' class="form-control" 
+                  onclick ="exampleListQuery();">
                 </select> 
               </div>
             </div>
@@ -373,7 +373,7 @@ $('document').ready (
       });  
 
      $('#runXQueryExamplebtn').click(function() {
-      if ($('#spatialQueries').val() == null) {
+      if ($('#exampleList').val() == null) {
           showModalAlert('Example not selected', 'An example must be selected');
       }
       else {
@@ -426,7 +426,7 @@ $('document').ready (
       } 
     }
 
-    function spatialQueries(){
+    function exampleListQuery(){
 
      var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
 
@@ -443,12 +443,12 @@ $('document').ready (
        var xmlDoc = $.parseXML( XML );
        var $xml = $( xmlDoc );
 
-       var $spatialQueries = $xml.find('spatialExample');
-       var $selection = $('#spatialQueries');
+       var exampleList = $xml.find('spatialExample');
+       var $selection = $('#exampleList');
 
        $selection.empty();
 
-       $spatialQueries.each(function(){
+       exampleList.each(function(){
 
          var $elem = $(this);
          var $idQuery = $elem.find('id').text();
@@ -465,9 +465,9 @@ $('document').ready (
 
   function runningXQueryExample(){
 
-    var $example = $('#spatialQueries').val();
+    var example = $('#exampleList').val();
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=' + $example;
+    var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
     $('#loader').modal('toggle');
 
     $.ajax({
