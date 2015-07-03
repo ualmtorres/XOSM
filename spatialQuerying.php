@@ -181,10 +181,10 @@
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
-                   <pre class="prettyprint">           
-                    osm_gml:_result2Osm(
-                    fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro", 0.001), 
-                    osm:furtherNorthWays(rt:getElementByName($spatialIndex, "Calle Calzada de Castro"),?)))
+                   <pre>           
+osm_gml:_result2Osm(
+fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro", 0.001), 
+osm:furtherNorthWays(rt:getElementByName($spatialIndex, "Calle Calzada de Castro"),?)))
                   </pre>
                 </div>
               </div>
@@ -199,13 +199,13 @@
               </div>
               <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
-                  <pre class="prettyprint">
-                    let $onewaysCrossing := 
-                    fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro",0), 
-                    osm:isCrossing(?, rt:getElementByName($spatialIndex, "Calle Calzada de Castro")))
-                    return
-                    osm_gml:_result2Osm(
-                    fn:filter($onewaysCrossing,osm:isEndingTo(?,rt:getElementByName($spatialIndex, "Avenida de Nuestra Señora de Montserrat"))))
+                  <pre>
+let $onewaysCrossing := 
+fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro",0), 
+osm:isCrossing(?, rt:getElementByName($spatialIndex, "Calle Calzada de Castro")))
+return
+osm_gml:_result2Osm(
+fn:filter($onewaysCrossing,osm:isEndingTo(?,rt:getElementByName($spatialIndex, "Avenida de Nuestra Señora de Montserrat"))))
                   </pre>
                 </div>
               </div>
@@ -220,15 +220,15 @@
               </div>
               <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
-                  <pre><code>
-                    let $onewaysAllEndingTo :=
-                    fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro", 0),
-                    osm:isEndingTo(rt:getElementByName($spatialIndex, "Calle Calzada de Castro"),?))
-                    return
-                    osm_gml:_result2Osm(
-                    fn:filter(fn:for-each($onewaysAllEndingTo, rt:getLayerByElement($spatialIndex,?,0.01)), 
-                    osm:searchTags(?,"school")))
-                  </code></pre>
+                  <pre>
+let $onewaysAllEndingTo :=
+fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro", 0),
+osm:isEndingTo(rt:getElementByName($spatialIndex, "Calle Calzada de Castro"),?))
+return
+osm_gml:_result2Osm(
+fn:filter(fn:for-each($onewaysAllEndingTo, rt:getLayerByElement($spatialIndex,?,0.01)), 
+osm:searchTags(?,"school")))
+                  </pre>
                 </div>
               </div>
             </div>
