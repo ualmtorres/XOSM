@@ -166,7 +166,7 @@ $('document').ready (
       } 
     }
 
-    function exampleListQuery(){
+    function exampleListQuery(option){
 
      var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
 
@@ -183,7 +183,21 @@ $('document').ready (
        var xmlParsed = $.parseXML( returnedXML );
        var xmlDoc = $( xmlParsed );
 
-       var exampleList = xmlDoc.find('spatialExample');
+       var queryFilter = '';
+
+       switch (option) {
+        case 'spatial':
+          queryFilter = 'spatialExample';
+          break;
+        case 'keyword':
+          queryFilter = 'keywordExample';
+          break;
+        case 'aggregation':
+          queryFilter = 'aggregationExample';
+          break;
+       }
+
+       var exampleList = xmlDoc.find(queryFilter);
        var selection = $('#exampleList');
 
        selection.empty();
