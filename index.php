@@ -9,14 +9,14 @@
   });
 </script>
 
-<div class="jumbotron">
+<div class="jumbotron app-jumbotron">
   <h1>XOSM</h1>
   <p>Spatial Queries on OpenStreetMap using XQuery</p>
 </div>
 
   <div class="container">
     <div class="row">
-      <div class="col-md-9" role="main">
+      <div class="col-md-12" role="main">
           <h2 class="page-header">The Aim of the Project</h2>
           <p>
             The aim of this project is to develop a library for querying OSM maps with XQuery. 

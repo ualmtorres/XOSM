@@ -21,7 +21,12 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css" />
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
 
-<nav class="navbar navbar-default">
+
+
+
+
+
+<nav class="navbar navbar-default app-navbar"> 
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
@@ -31,7 +36,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">XOSM</a>
+      <a class="navbar-brand" href="index.php">XOSM</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
