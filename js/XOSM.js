@@ -224,20 +224,7 @@ $('document').ready (
     var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
     $('#loader').modal('toggle');
 
-    $.ajax({
-      url: 'elementsFromAPI.php',
-      type: 'GET',
-      data: {url:url},
-      dataType: 'text',
-      success: refresh
-    }
-    )
-    function refresh(data){
-    	$('#loader').modal('hide');
-      $('#osmData').text(data);
-      $('#showOSMbtn').show();
-      drawMap(data);
-      }
+    runQuery(url);
     }
   
   function runningXQueryShell(){
@@ -248,6 +235,10 @@ $('document').ready (
     var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + databaseName + '&textArea=' + encodeURIComponent(text);
     $('#loader').modal('toggle');
 
+    runQuery(url); 
+  }
+
+  function runQuery(url) {
     $.ajax({
       url: 'elementsFromAPI.php',
       type: 'GET',
@@ -257,9 +248,9 @@ $('document').ready (
     }
     )
     function refresh(data){
-    	$('#loader').modal('hide');
+      $('#loader').modal('hide');
       $('#osmData').text(data);
       $('#showOSMbtn').show();
       drawMap(data);
-    } 
+    }
   }
