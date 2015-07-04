@@ -86,7 +86,7 @@ $('document').ready (
 <div class="container fu-docs-container">
 
   <div class="row">
-    <div class="col-md-9" role="main">
+    <div class="col-md-12" role="main">
 
 
       <div class="fu-docs-section">
@@ -223,10 +223,6 @@ return osm_aggr:metricMax(osm_aggr:metricMax($hotels,
           </div>
         </div>
       </div>
-			<br/>
-      <div id="map" style="width: 600px; height: 400px"></div>
-      <br/>
-      <button id="showOSMbtn" class="btn btn-primary" data-toggle="modal" data-target="#showOSM">Show OSM data</button><br/>
     </div>
   </div>
 </div>

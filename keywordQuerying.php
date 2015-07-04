@@ -179,10 +179,6 @@ rt:getLayerByElement($spatialIndex,?,0.001)),function($osmLayer)
           </div>
         </div>
       </div>
-			<br/>
-      <div id="map" style="width: 600px; height: 400px"></div>
-      <br/>
-      <button id="showOSMbtn" class="btn btn-primary" data-toggle="modal" data-target="#showOSM">Show OSM data</button><br/>
     </div>
   </div>
 </div>
