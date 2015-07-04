@@ -13,7 +13,7 @@
 <div class="container fu-docs-container">
 
   <div class="row">
-    <div class="col-md-9" role="main">
+    <div class="col-md-12" role="main">
 
 
       <div class="fu-docs-section">
@@ -43,7 +43,7 @@
               <h3>Selection of Map and Zoom Level for Indexing</h3>
               <div>
                 <div id = 'datos'></div>
-                <div id="map" style="width: 600px; height: 400px"></div>
+                <div id="map" style="height: 300px"></div>
               </div>
             </div>
             <div class="step-pane" data-step="2">
