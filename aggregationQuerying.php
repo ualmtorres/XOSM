@@ -169,16 +169,16 @@ $('document').ready (
                 <div class="panel-heading" role="tab" id="headingOne">
                   <h4 class="panel-title">
                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Retrieve the streets to the north of the street <i>Calzada de Castro</i>
+                      Retrieve the size of park areas close to the street <i>Paseo de Almería</i>
                     </a>
                   </h4>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                    <pre>           
-osm_gml:_result2Osm(
-fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro", 0.001), 
-osm:furtherNorthWays(rt:getElementByName($spatialIndex, "Calle Calzada de Castro"),?)))
+let $parkAreas := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almeria",0.003), 
+osm:searchTags(?,"park"))
+return osm_aggr:metricSum($parkAreas,"osm:getArea")
                   </pre>
                 </div>
               </div>
@@ -187,19 +187,16 @@ osm:furtherNorthWays(rt:getElementByName($spatialIndex, "Calle Calzada de Castro
               <div class="panel-heading" role="tab" id="headingTwo">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Retrieve the streets crossing the street <i>Calzada de Castro</i> and ending to street <i>Avenida de Nuestra Señora de Montserrat</i>
+                    Retrieve the most frequent star rating of hotels close to <i>Paseo de Almeria</i>
                   </a>
                 </h4>
               </div>
               <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
                   <pre>
-let $onewaysCrossing := 
-fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro",0), 
-osm:isCrossing(?, rt:getElementByName($spatialIndex, "Calle Calzada de Castro")))
-return
-osm_gml:_result2Osm(
-fn:filter($onewaysCrossing,osm:isEndingTo(?,rt:getElementByName($spatialIndex, "Avenida de Nuestra Señora de Montserrat"))))
+let $hotels := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almeria",0.003),
+osm:searchTags(?,"hotel"))
+return osm_aggr:metricMode($hotels,"osm:getHotelStars")
                   </pre>
                 </div>
               </div>
@@ -208,20 +205,17 @@ fn:filter($onewaysCrossing,osm:isEndingTo(?,rt:getElementByName($spatialIndex, "
               <div class="panel-heading" role="tab" id="headingThree">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Retrieve the schools close to an street, wherein the street <i>Calzada de Castro</i> ends
+                    Retrieve he biggest hotels of top star ratings close to <i>Paseo de Almeria</i>
                   </a>
                 </h4>
               </div>
               <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
                   <pre>
-let $onewaysAllEndingTo :=
-fn:filter(rt:getLayerByName($spatialIndex,"Calle Calzada de Castro", 0),
-osm:isEndingTo(rt:getElementByName($spatialIndex, "Calle Calzada de Castro"),?))
-return
-osm_gml:_result2Osm(
-fn:filter(fn:for-each($onewaysAllEndingTo, rt:getLayerByElement($spatialIndex,?,0.01)), 
-osm:searchTags(?,"school")))
+let $hotels := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almeria",0.003),
+osm:searchTags(?,"hotel"))
+return osm_aggr:metricMax(osm_aggr:metricMax($hotels,
+"osm:getHotelStars"),"osm:getArea")
                   </pre>
                 </div>
               </div>
