@@ -94,7 +94,7 @@ $('document').ready (
       switch(data.step) {
         case 1:
         if ($('#database').val() == null) {
-          showModalAlert('Spatial Index not selected', 'A Spatial Index must be selected');
+          showModalAlert('Index not selected', 'An Index must be selected');
           $('#XQueryShell').wizard('selectedItem', {
             step: 1
           });  
