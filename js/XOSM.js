@@ -250,7 +250,12 @@ $('document').ready (
     function refresh(data){
       $('#loader').modal('hide');
       $('#osmData').text(data);
-      $('#showOSMbtn').show();
-      drawMap(data);
+      if (data.indexOf("<") > -1) {
+        $('#showOSMbtn').show();
+        drawMap(data);        
+      }
+      else {
+        $('#showOSM').modal('show');
+      }
     }
   }
