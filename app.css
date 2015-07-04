@@ -20,3 +20,7 @@ pre, code {
 	padding-bottom: 20px;
 	margin-bottom: 0px
 }
+
+.app-modal-body {
+	text-align: center;
+}

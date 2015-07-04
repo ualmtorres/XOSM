@@ -22,7 +22,14 @@
     <script src="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js"></script>
 
 
-
+<script type="text/javascript">
+  jQuery(function($) {
+  $("#contactUsLink").click(function(e) {
+      e.preventDefault();       
+      $('#contactUs').modal('show');
+  });
+});
+</script>
 
 
 
@@ -47,6 +54,10 @@
         <li id = "spatialbtn"><a href="spatialQuerying.php">Spatial Query</a></li>
         <li id = "keywordbtn"><a href="keywordQuerying.php">Keyword Query</a></li>            
         <li id = "aggregationbtn"><a href="aggregationQuerying.php">Aggregation Query</a></li>     
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" id="contactUsLink">Contact us</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->

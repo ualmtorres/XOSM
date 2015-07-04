@@ -39,7 +39,7 @@
         Jesús Manuel Almendros-Jimenez <a href="mailto:jalmen@ual.es">jalmen@ual.es</a><br/>
         Antonio Becerra-Terón <a href="mailto:abecerra@ual.es">abecerra@ual.es</a><br/>
         Manuel Torres <a href="mailto:mtorres@ual.es">mtorres@ual.es</a><br/>
-        Departamento de Informatica (<a href="www.ual.es">University of Almería)</a><br/>
+        Departamento de Informatica (<a href="http://www.ual.es">University of Almería)</a><br/>
         04120 Almería (Spain)
     </footer>
 
