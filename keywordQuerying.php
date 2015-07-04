@@ -185,7 +185,6 @@ rt:getLayerByElement($spatialIndex,?,0.001)),function($osmLayer)
 
 <?php
   include('mapDiv.php');
-  include('commonModals.php');
 ?>
 
 <script src="js/XOSM.js"></script>

@@ -31,7 +31,9 @@
 });
 </script>
 
-
+<?php
+include('commonModals.php');
+?>
 
 <nav class="navbar navbar-default app-navbar"> 
   <div class="container-fluid">

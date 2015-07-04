@@ -197,7 +197,6 @@ osm:searchTags(?,"school")))
 
 <?php
   include('mapDiv.php');
-  include('commonModals.php');
 ?>
 
 <script src="js/XOSM.js"></script>

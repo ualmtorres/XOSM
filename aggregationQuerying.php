@@ -229,7 +229,6 @@ return osm_aggr:metricMax(osm_aggr:metricMax($hotels,
 
 <?php
   include('mapDiv.php');
-  include('commonModals.php');
 ?>
 
 <script src="js/XOSM.js"></script>
