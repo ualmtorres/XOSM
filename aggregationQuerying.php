@@ -229,12 +229,12 @@ osm_aggr:metricMax(osm_aggr:metricMax($hotels,"osm:getHotelStars"), "osm:getArea
             <div class="panel panel-default">
               <div class="panel-heading" role="tab" id="headingThree">
                 <h4 class="panel-title">
-                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseThree">
                     Retrieve the closet restaurant to <i>Paseo de Almeria</i> having the most typical food  
                   </a>
                 </h4>
               </div>
-              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+              <div id="collapseFour" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                 <div class="panel-body">
                   <pre>
 let $restaurants := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almería",0.003), 
