@@ -41,6 +41,7 @@ function drawMap(data) {
         // Find ways
         $(data).find("way").each(function(){
           pointList = [];
+          var name = $(this).find("tag[k='name']").attr('v');
 
           $(this).find("nd").each(function(){
 
@@ -59,7 +60,7 @@ function drawMap(data) {
             opacity: 0.5
           });
 
-          firstpolyline.addTo(map);
+          firstpolyline.addTo(map).bindPopup(name);
 
           controls.push(firstpolyline);
         })
