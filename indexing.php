@@ -88,6 +88,11 @@
         }
         break;
       }});
+
+      $('#indexingWizard').on('finished.fu.wizard', function (evt, data) {
+          indexing();
+          alert("Jesús, te queremos mucho!!")
+      });  
      </script>
    </div>
  </div>
