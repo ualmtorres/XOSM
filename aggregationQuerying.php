@@ -159,7 +159,7 @@ $('document').ready (
           </div>
           <div role="tabpanel" class="tab-pane" id="menuExamples">
             <h3>Aggregation OSM Query Examples</h3>
-            <h4>Aggregation Index to be used: <b>spatialIndexCalzadaCastroAlmeria</b></h4>
+            <h4>Aggregation Index to be used: <b>spatialIndexPaseoAlmeria</b></h4>
 
 
 
@@ -176,9 +176,10 @@ $('document').ready (
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                    <pre>           
-let $parkAreas := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almeria",0.003), 
-osm:searchTags(?,"park"))
-return osm_aggr:metricSum($parkAreas,"osm:getArea")
+let $parkAreas := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almería",0.003), 
+           osm:searchTags(?,"park"))          
+return
+osm_aggr:metricSum($parkAreas,"osm:getArea")
                   </pre>
                 </div>
               </div>
@@ -187,16 +188,19 @@ return osm_aggr:metricSum($parkAreas,"osm:getArea")
               <div class="panel-heading" role="tab" id="headingTwo">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    Retrieve the most frequent star rating of hotels close to <i>Paseo de Almeria</i>
+                    Retrieve the hotels with the most frequent star rating close to <i>Paseo de Almeria</i>
                   </a>
                 </h4>
               </div>
               <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="panel-body">
                   <pre>
-let $hotels := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almeria",0.003),
-osm:searchTags(?,"hotel"))
-return osm_aggr:metricMode($hotels,"osm:getHotelStars")
+let $hotels := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almería",0.003), 
+           osm:searchTags(?,"hotel"))                  
+return
+osm_gml:_result2Osm(
+  osm_aggr:metricMode($hotels,"osm:getHotelStars") 
+)
                   </pre>
                 </div>
               </div>
@@ -205,17 +209,41 @@ return osm_aggr:metricMode($hotels,"osm:getHotelStars")
               <div class="panel-heading" role="tab" id="headingThree">
                 <h4 class="panel-title">
                   <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                    Retrieve he biggest hotels of top star ratings close to <i>Paseo de Almeria</i>
+                    Retrieve the biggest hotels of top star ratings close to <i>Paseo de Almeria</i>
                   </a>
                 </h4>
               </div>
               <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                 <div class="panel-body">
                   <pre>
-let $hotels := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almeria",0.003),
-osm:searchTags(?,"hotel"))
-return osm_aggr:metricMax(osm_aggr:metricMax($hotels,
-"osm:getHotelStars"),"osm:getArea")
+let $hotels := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almería",0.003), 
+                         osm:searchTags(?,"hotel"))                  
+return
+osm_gml:_result2Osm( 
+osm_aggr:metricMax(osm_aggr:metricMax($hotels,"osm:getHotelStars"), "osm:getArea")
+)
+                  </pre>
+                </div>
+              </div>
+            </div>
+            <div class="panel panel-default">
+              <div class="panel-heading" role="tab" id="headingThree">
+                <h4 class="panel-title">
+                  <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Retrieve the closet restaurant to <i>Paseo de Almeria</i> having the most typical food  
+                  </a>
+                </h4>
+              </div>
+              <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                <div class="panel-body">
+                  <pre>
+let $restaurants := fn:filter(rt:getLayerByName($spatialIndex,"Paseo de Almería",0.003), 
+           osm:searchTags(?,"restaurant"))                  
+return
+osm_gml:_result2Osm(
+  osm_aggr:metricMin(osm_aggr:metricMode($restaurants,
+          "osm:getRestaurantCuisine"),"osm:getDistance")[1]
+        )
                   </pre>
                 </div>
               </div>
