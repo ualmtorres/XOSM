@@ -38,6 +38,7 @@ function drawMap(data) {
 
         map.panTo([firstLat, firstLon]);
 
+        // Find ways
         $(data).find("way").each(function(){
           pointList = [];
 
@@ -61,6 +62,35 @@ function drawMap(data) {
           firstpolyline.addTo(map);
 
           controls.push(firstpolyline);
+        })
+
+        /* Find isolated points: node elements that are not nd elements */
+
+        //Build a string list of nd elements
+        var stringNDList = "";
+        $(data).find("nd").each(function(){
+          stringNDList += "·" + $(this).attr('ref') + "· ";
+        })
+
+        // Show node element if it is not included in the list of nd elements
+        $(data).find("node").each(function(){
+          // Get the id attribute of the node
+          var id = "·" + $(this).attr('id') + "·";
+
+          // If the id is not included in the list of nd's (it is an isolated node)
+          if (stringNDList.indexOf(id) == -1) {
+            //Get lat, lon and name
+            var lat = $(this).attr('lat');
+            var lon = $(this).attr('lon');
+            var name = $(this).find("tag[k='name']").attr('v');
+            
+            // Create a marker and add it to the map
+            var control = L.marker([lat, lon]);
+            control.addTo(map)
+            .bindPopup(name);      
+            controls.push(control);
+
+          }
         })
   }
 
