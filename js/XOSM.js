@@ -55,7 +55,7 @@ function drawMap(data) {
             pointList.push(point);
           })
 
-          var firstpolyline = new L.polygon(pointList, {
+          var firstpolyline = new L.polyline(pointList, {
             color: "blue",
             opacity: 0.5
           });
