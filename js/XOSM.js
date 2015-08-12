@@ -45,7 +45,7 @@ function drawMap(data) {
 
           var firstpolyline = new L.polyline(pointList, {
             color: "blue",
-            opacity: 0.5
+            opacity: 1
           });
 
           firstpolyline.addTo(map).bindPopup(name);
