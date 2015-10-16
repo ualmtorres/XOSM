@@ -1,3 +1,5 @@
+//basex.cloudapp.net:8984/rest devuelve la lista de BD creadas en BaseX 
+
 
 var controls = [];
 
@@ -141,6 +143,7 @@ $('document').ready (
     });
  
      $('#runXQueryShellbtn').click(function() {
+      alert "Hey";
       if ($('#query').val() == '') {
           showModalAlert('XQuery code is missing', 'XQuery code must me typed');
       }
@@ -247,15 +250,47 @@ $('document').ready (
     }
   
   function runningXQueryShell(){
+    alert "Hola";
 
     var text = $('#query').val();  
-    var databaseName = $('#database').val();
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&databaseName=' + databaseName + '&textArea=' + encodeURIComponent(text);
+    // Retrieve OSM data
+
+    var url = 'http://basex.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
+
     $('#loader').modal('toggle');
 
+    // Cambiar para que sea síncrono
+    createDatabase(url); 
+
+    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&textArea=' + encodeURIComponent($text); 
+
     runQuery(url); 
+
   }
+
+function runningNewXQueryExample(){
+
+    var example = 'let   $street  :=  xosm_rtj:getElementByName(., "Calle  Calzada  de  Castro"),
+      $layer:=  xosm_rtj:getLayerByName(.,"Calle  Calzada  de  Castro", 0.001)
+return
+fn:filter(fn:filter($layer ,xosm_sp:furtherNorthWays($street ,?)),
+          xosm_kw:searchKeyword(?,"highway"))'
+
+    var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
+    $('#loader').modal('toggle');
+
+    runQuery(url);
+    }
+
+  function createDatabase(url) {
+    $.ajax({
+      url: 'elementsFromAPI.php',
+      type: 'GET',
+      data: {url:url},
+      dataType: 'text',
+      async: false
+    })}
 
   function runQuery(url) {
     $.ajax({

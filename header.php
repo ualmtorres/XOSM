@@ -52,10 +52,13 @@ include('commonModals.php');
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li id = 'homebtn'><a href="index.php">Home</a></li>
+<!--
         <li id = "indexingbtn"><a href="indexing.php">Index a region</a></li>
         <li id = "spatialbtn"><a href="spatialQuerying.php">Spatial Query</a></li>
         <li id = "keywordbtn"><a href="keywordQuerying.php">Keyword Query</a></li>            
         <li id = "aggregationbtn"><a href="aggregationQuerying.php">Aggregation Query</a></li>     
+-->
+        <li id = "querybtn"><a href="query.php">Query</a></li>     
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
