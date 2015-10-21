@@ -17,12 +17,12 @@ include('queries.php');
         <div class="page-header">
         </div>
 
-        <div class = "col-md-8">
+        <div class = "col-md-9">
 
 
           <div class="form-group row">
                 <label for="inputKey" class="col-md-1 control-label">Address:</label>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <input type="text" class="form-control" id="address" placeholder="i.e. Calzada de Castro, Almeria, Spain">
                 </div>
                 <div class="col-md-1">
@@ -31,11 +31,11 @@ include('queries.php');
             </div>
 
           <div id = 'datos'></div>
-          <div id="map" style="height: 600px"></div>
+          <div id="map" style="height: 700px"></div>
           <p></p>
         </div>
 
-        <div class = "col-md-4">
+        <div class = "col-md-3">
 
           <!-- Nav tabs -->
           <ul class="nav nav-tabs" role="tablist">
@@ -46,7 +46,7 @@ include('queries.php');
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="menuXQueryShell">
-                  <textarea id = 'query' name = 'query' rows = '10' cols = '50' placeholder = 'XQuery shell - Examples Tab provides some testing examples'></textarea><br/>
+                  <textarea id = 'query' name = 'query' rows = '30' cols = '50' placeholder = 'XQuery shell - Examples Tab provides some testing examples'></textarea><br/>
                   <button onclick = "$('#query').val('');" class="btn btn-warning">Clear</button>
                   <button  id = "runXQueryShellbtn" class="btn btn-primary">Run</button><br/>
             </div>
@@ -114,7 +114,7 @@ var lng = -2.45245;
 
 function getLngLat(address) {
 
-    var API_KEY = 'AIzaSyB26drbi5UdA5vPR4Siws2MhsDzkMjF88o';
+    var API_KEY = 'XXX';
     
      var url = encodeURI('https://maps.googleapis.com/maps/api/geocode/xml?address=' + address + '&key=' + API_KEY);
 
@@ -193,38 +193,46 @@ function indexing(){
     });
 
   function runningXQueryShell(){
+    if (map.getZoom() < 16) {
+      $('#zoomToLarge').modal('show');
+      map.setZoom(16);
+    }
+    else {
+      var text = $('#query').val();  
 
-    var text = $('#query').val();  
+      $('#loader').modal('toggle');
 
-    $('#loader').modal('toggle');
+      // Create database
 
-    // Create database
+      var url = 'http://basex.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
+      // Cambiar para que sea síncrono
+      createDatabase(url); 
 
-    // Cambiar para que sea síncrono
-    createDatabase(url); 
+      // Retrieve OSM data
 
-    // Retrieve OSM data
+      var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEvalrtj.xq&textArea=' + encodeURIComponent(text); 
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEvalrtj.xq&textArea=' + encodeURIComponent(text); 
+      alert(url);
 
-    alert(url);
+      runQuery(url);       
+    }
 
-    runQuery(url); 
 
   }
 
     function runningXQueryExample(example){
-
+    $('#indexing').modal('show');
+    
     var url = 'http://basex.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
+
 
     // Cambiar para que sea síncrono
     createDatabase(url); 
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
+    $('#indexing').modal('hide');
 
-    $('#loader').modal('toggle');
+    var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
 
     runQuery(url);
     }

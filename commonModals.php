@@ -1,4 +1,20 @@
 <!-- Modal -->
+<div class="modal fade" id="indexing" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Indexing Map Objects</h3>
+      </div>
+      <div class="modal-body">
+        <div class="loader" data-initialize="loader"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="loader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

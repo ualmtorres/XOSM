@@ -4,6 +4,8 @@
 
 	$urlPrefix = "http://" . $host . "/rest/" . $database . "?";
 
+	$urlAPIREST = "http://localhost:8012/";
+
 	$userBaseX = "xxx";
 	$passwordBaseX = "xxx";
 ?>
