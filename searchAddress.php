@@ -1,6 +1,9 @@
 <?php 
-  $url = $_GET['url'];
+	$API_KEY = 'xxx';
 
+  $address = $_GET['address'];
+
+  $url = 'https://maps.googleapis.com/maps/api/geocode/xml?address=' . urlencode($address) . '&key=' . $API_KEY;
   
  // Create a stream
  $opts = array(

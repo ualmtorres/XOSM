@@ -114,14 +114,10 @@ var lng = -2.45245;
 
 function getLngLat(address) {
 
-    var API_KEY = 'XXX';
-    
-     var url = encodeURI('https://maps.googleapis.com/maps/api/geocode/xml?address=' + address + '&key=' + API_KEY);
-
      $.ajax({
       url: 'searchAddress.php',
       type: 'GET',
-      data: {url:url},
+      data: {address:address},
       dataType: 'text',
       success: refresh
     })
@@ -136,8 +132,6 @@ function getLngLat(address) {
 
        map.panTo([lat, lng]);
      }
-
-
 
 }
 
