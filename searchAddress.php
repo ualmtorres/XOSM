@@ -1,6 +1,6 @@
 <?php 
-	$API_KEY = 'xxx';
-
+	include("connection.php");
+	
   $address = $_GET['address'];
 
   $url = 'https://maps.googleapis.com/maps/api/geocode/xml?address=' . urlencode($address) . '&key=' . $API_KEY;

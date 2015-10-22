@@ -192,6 +192,9 @@ function indexing(){
       map.setZoom(16);
     }
     else {
+
+      var southWest = map.getBounds().getSouthWest();
+      var northEast = map.getBounds().getNorthEast();
       var text = $('#query').val();  
 
       $('#loader').modal('toggle');
@@ -216,15 +219,8 @@ function indexing(){
   }
 
     function runningXQueryExample(example){
-    $('#indexing').modal('show');
+    //$('#indexing').modal('show');
     
-    var url = 'http://basex.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
-
-
-    // Cambiar para que sea síncrono
-    createDatabase(url); 
-
-    $('#indexing').modal('hide');
 
     var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
 
