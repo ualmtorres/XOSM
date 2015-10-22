@@ -19,16 +19,12 @@
       <div class="col-md-12" role="main">
           <h2 class="page-header">The Aim of the Project</h2>
           <p>
-            The aim of this project is to develop a library for querying OSM maps with XQuery. 
-            With this aim, we will define a XQuery library that enables to query XML data from OSM. 
-            This library is based on the well-known spatial operators defined by Clementini, 
-            providing a set of XQuery functions that encapsulates the search on the XML 
-            document representing a layer of OSM, and makes easy the definition of queries on top of OSM layers. 
-            In essence, the library provides a repertory of Urban Operators for points and lines which, 
-            in combination with Higher Order facilities of XQuery, makes easy the composition of queries 
-            and the definition of keyword based search geo-localized queries. OSM data are 
-            indexed by an R-tree structure, in which points and lines are enclosed by Minimum 
-            Bounding Rectangles (MBRs), in order to get shorter answer time.</p>
+            Volunteered geographic information (VGI) makes available a very large resource of geographic data. The exploitation of data coming from such resources requires an additional effort in the form of tools and effective processing techniques. One of the most stablished VGI is Open Street Map (OSM) offering data of urban and rural maps from the earth.
+In this paper we present a tool, called XOSM, for the processing of geospatial queries on OSM.
+The tool is equipped with a rich query language based on a set of operators
+defined for OSM which have been implemented as a library of the XML query language XQuery.  
+The library provides a rich repertoire of spatial, keyword and aggregation based functions, which act on the XML representation of an OSM layer. The use of the higher order facilities of XQuery makes possible the definition of complex geospatial queries
+involving spatial relations, keyword searching and aggregation functions. XOSM indexes OSM data enabling efficient retrieval of answers.</p>
       </div>
     </div>
   </div>
