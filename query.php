@@ -280,6 +280,7 @@ function scrollToTop() {
         drawMap(data);        
       }
       else {
+        clearMap();
         $('#showOSM').modal('show');
       }
       hideModalLoader();
