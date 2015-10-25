@@ -85,12 +85,7 @@ include('queries.php');
   echo '  </div>';
   echo '</div>';
 }
-?>
-
-
-
-
-                                    
+?>                                 
           </div>           
             </div>
           </div>
@@ -177,15 +172,43 @@ function indexing(){
       $('#loader').modal('show');
      }
 
+    function hideModalLoader() {
+      $('#loader').modal('hide');
+     }
+
     $('#runXQueryShellbtn').click(function() {
       if ($('#query').val() == '') {
           showModalAlert('XQuery code is missing', 'XQuery code must me typed');
       }
       else {
-        showModalLoader("Getting OSM data and Indexing", "Obtaining OSM data and Indexing");
         runningXQueryShell();
       }
     });
+
+
+
+$(function(){
+ 
+  $(document).on( 'scroll', function(){
+ 
+    if ($(window).scrollTop() > 100) {
+      $('.scroll-top-wrapper').addClass('show');
+    } else {
+      $('.scroll-top-wrapper').removeClass('show');
+    }
+  });
+ 
+  $('.scroll-top-wrapper').on('click', scrollToTop);
+});
+ 
+function scrollToTop() {
+  verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
+  element = $('body');
+  offset = element.offset();
+  offsetTop = offset.top;
+  $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
+}
+
 
   function runningXQueryShell(){
     if (map.getZoom() < 16) {
@@ -199,7 +222,6 @@ function indexing(){
 
       var text = $('#query').val();  
 
-
       // Create database
 
       var url = 'http://basex.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
@@ -209,13 +231,9 @@ function indexing(){
 
       // Retrieve OSM data
 
-      showModalLoader("Querying", "Querying and depicting resulting objects");
-
       var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEvalrtj.xq&textArea=' + encodeURIComponent(text); 
 
-      //alert(url);
-
-      runQuery(url);       
+      runQuery(url);    
     }
 
 
@@ -236,10 +254,17 @@ function indexing(){
       type: 'GET',
       data: {url:url},
       dataType: 'text',
-      async: false
-    })}
+      async: false,
+      success: refresh
+    })
+      function refresh(){
+        hideModalLoader();
+    }
+  }
 
   function runQuery(url) {
+    showModalLoader("Querying", "Querying and depicting resulting objects");
+
     $.ajax({
       url: 'elementsFromAPI.php',
       type: 'GET',
@@ -257,7 +282,8 @@ function indexing(){
       else {
         $('#showOSM').modal('show');
       }
-      $('#loader').modal('hide');
+      hideModalLoader();
+      scrollToTop();
     }
   }
 
