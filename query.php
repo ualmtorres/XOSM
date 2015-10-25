@@ -41,13 +41,16 @@ include('queries.php');
           <ul class="nav nav-tabs" role="tablist">
             <li role="presentation" class="active"><a href="#menuXQueryShell" aria-controls="profile" role="tab" data-toggle="tab">XQuery Shell</a></li>
             <li role="presentation"><a href="#menuExamples" aria-controls="messages" role="tab" data-toggle="tab">Examples</a></li>
+            <button type="button" class="btn btn-info" data-toggle="modal" data-target="#infoModal">
+              Show Info
+            </button>
           </ul>
 
           <!-- Tab panes -->
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="menuXQueryShell">
                   <textarea id = 'query' name = 'query' rows = '30' cols = '50' placeholder = 'XQuery shell - Examples Tab provides some testing examples'></textarea><br/>
-                  <button onclick = "$('#query').val('');" class="btn btn-warning">Clear</button>
+                  <button onclick = "clearMap;" class="btn btn-warning">Clear</button>
                   <button  id = "runXQueryShellbtn" class="btn btn-primary">Run</button><br/>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuExamples">
@@ -95,15 +98,6 @@ include('queries.php');
 
       </div>
     </div>
-<script language="JavaScript" type="text/javascript">
-/*
-// Incluir esto 
-
-if (map.getZoom() < 16) {
-  $('#zoomToLarge').modal('show');
-  map.setZoom(16);            
-*/
-  </script>
 </div>
 </div>
 
@@ -177,27 +171,34 @@ function indexing(){
       $('#modalAlert').modal('show');
      }
 
+    function showModalLoader(loaderTitle, loaderBody) {
+      $('#loaderTitle').text(loaderTitle);
+      $('#loaderBody').text(loaderBody);
+      $('#loader').modal('show');
+     }
+
     $('#runXQueryShellbtn').click(function() {
       if ($('#query').val() == '') {
           showModalAlert('XQuery code is missing', 'XQuery code must me typed');
       }
       else {
+        showModalLoader("Getting OSM data and Indexing", "Obtaining OSM data and Indexing");
         runningXQueryShell();
       }
     });
 
   function runningXQueryShell(){
     if (map.getZoom() < 16) {
-      $('#zoomToLarge').modal('show');
+      showModalAlert('Zoom too large', 'Zoom too large. Please, select a smaller zoom.');
       map.setZoom(16);
     }
     else {
 
       var southWest = map.getBounds().getSouthWest();
       var northEast = map.getBounds().getNorthEast();
+
       var text = $('#query').val();  
 
-      $('#loader').modal('toggle');
 
       // Create database
 
@@ -208,9 +209,11 @@ function indexing(){
 
       // Retrieve OSM data
 
+      showModalLoader("Querying", "Querying and depicting resulting objects");
+
       var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEvalrtj.xq&textArea=' + encodeURIComponent(text); 
 
-      alert(url);
+      //alert(url);
 
       runQuery(url);       
     }
@@ -246,7 +249,6 @@ function indexing(){
     }
     )
     function refresh(data){
-      $('#loader').modal('hide');
       $('#osmData').text(data);
       if (data.indexOf("<") > -1) {
         $('#showOSMbtn').show();
@@ -255,8 +257,17 @@ function indexing(){
       else {
         $('#showOSM').modal('show');
       }
+      $('#loader').modal('hide');
     }
   }
+
+function clearMap() {
+  $('#query').val('');
+
+    for (z = 0; z < controls.length; z++) {
+      map.removeLayer(controls[z]);
+    }
+}
 
 function drawMap(data) {
   
@@ -340,28 +351,6 @@ function drawMap(data) {
         })
   }
 </script>
-
-<!-- Modal -->
-<div class="modal fade" id="zoomToLarge" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Zoom too large</h3>
-      </div>
-      <div class="modal-body">
-        <p>
-          Zoom too large. Please, select a smaller zoom.
-        </p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 
 
 <?php
