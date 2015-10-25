@@ -50,7 +50,7 @@ include('queries.php');
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="menuXQueryShell">
                   <textarea id = 'query' name = 'query' rows = '30' cols = '50' placeholder = 'XQuery shell - Examples Tab provides some testing examples'></textarea><br/>
-                  <button onclick = "clearMap;" class="btn btn-warning">Clear</button>
+                  <button onclick = "clearMap();" class="btn btn-warning">Clear</button>
                   <button  id = "runXQueryShellbtn" class="btn btn-primary">Run</button><br/>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuExamples">
