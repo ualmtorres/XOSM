@@ -136,12 +136,11 @@
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="menuIndex">
               <span>
-                <p>In order to handle large city maps, in which the layer can include many OSM elements, 
+                In order to handle large city maps, in which the layer can include many OSM elements, 
                 an R-tree structure to index objects has been implemented. 
                 The R-tree structure is based as usual on MBR's (<b>Minimum Bounding Rectangles</b>) to hierarchically 
-                organize the content of an OSM map, and they are also used to enclose in leaves nodes and ways of OSM.
-                </p>
-                <p>A database will be generated for spatial, keyword and aggregation queries.</p>
+                organize the content of an OSM map, and they are also used to enclose in leaves nodes and ways of OSM.<br/><br/>
+                A database will be generated for spatial, keyword and aggregation queries.
               </span>
             </div> 
             <div role="tabpanel" class="tab-pane" id="menuSpatial">
@@ -180,7 +179,6 @@
               </ul>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuAggregation">
-              <p>
                 Here, we will show the proposed operators in our library for expressing aggregation queries. 
                    The aggregation operators are inspired by the SOLAP operators. They consider two levels of operators. 
                    <ul>
@@ -205,8 +203,6 @@
                    <li>An aggregate 
                    function is Holistic when there does not exist an algebraic function with m arguments that characterizes the computation.</li>
                  </ul>
-
-              </p>
               <h3>Aggregation OpenStreetMap Operators</h3>
               <ul>
                 <li><b>Distributive Operators</b></li>
