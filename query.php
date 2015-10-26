@@ -288,6 +288,9 @@ function scrollToTop() {
           $('#showOSM').modal('show');
         }
       }
+      else {
+        removeMapLayers();
+      }
       hideModalLoader();
       scrollToTop();
 
