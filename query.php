@@ -50,7 +50,8 @@ include('queries.php');
           <div class="tab-content">
             <div role="tabpanel" class="tab-pane active" id="menuXQueryShell">
                   <textarea id = 'query' name = 'query' rows = '30' cols = '50' placeholder = 'XQuery shell - Examples Tab provides some testing examples'></textarea><br/>
-                  <button onclick = "clearMap();" class="btn btn-warning">Clear</button>
+                  <button onclick = "removeMapLayers();" class="btn btn-warning">Clear Map</button>
+                  <button onclick = "clearQuery();" class="btn btn-warning">Clear Query</button>
                   <button  id = "runXQueryShellbtn" class="btn btn-primary">Run</button><br/>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuExamples">
@@ -274,23 +275,31 @@ function scrollToTop() {
     }
     )
     function refresh(data){
-      $('#osmData').text(data);
-      if (data.indexOf("<") > -1) {
-        $('#showOSMbtn').show();
-        drawMap(data);        
-      }
-      else {
-        clearMap();
-        $('#showOSM').modal('show');
+      // Empty documents return 3 characters
+      if (data.length > 3) {
+        $('#osmData').text(data);
+
+        if (data.indexOf("<") > -1) {
+          $('#showOSMbtn').show();
+          drawMap(data);        
+        }
+        else {
+          removeMapLayers();
+          $('#showOSM').modal('show');
+        }
       }
       hideModalLoader();
       scrollToTop();
+
+
     }
   }
 
-function clearMap() {
+function clearQuery() {
   $('#query').val('');
+}
 
+function removeMapLayers() {
     for (z = 0; z < controls.length; z++) {
       map.removeLayer(controls[z]);
     }
