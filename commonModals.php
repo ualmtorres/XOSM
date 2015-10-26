@@ -142,6 +142,13 @@
                 organize the content of an OSM map, and they are also used to enclose in leaves nodes and ways of OSM.<br/><br/>
                 A database will be generated for spatial, keyword and aggregation queries.
               </span>
+              <h3>Index Operators</h3>
+              <ul>
+                <li><code>getLayerByName(map, name, distance)</code></li>
+                <li><code>getLayerByElement(map, osmElement, distance)</code></li>
+                <li><code>getElementByName(map, name)</code></li>
+                <li><code>sgetElementsByKeyword(map, keyword)</code></li>
+              </ul>
             </div> 
             <div role="tabpanel" class="tab-pane" id="menuSpatial">
               <span>In our library, we have proposed and designed a repertoire of Spatial Operators, 
@@ -160,7 +167,7 @@
                       <code>furtherNorthPoints(p1,p2), furtherSouthPoints(p1,p2), furtherEastPoints(p1,p2), furtherWestPoints(p1,p2), furtherNorthWays(s1,s2), furtherSouthWays(s1,s2), furtherEastWays(s1,s2), furtherWestWays(s1,s2)</code></li>
                 </ul>
                 <li><b>Clementini based OSM Operators</b></li>
-                <code>inWay(p,s), inSameWay(p1,p2), intersectionPoint(s1,s2), isCrossing(s1,s2), isParallel(s1,s2), isEndingTo(s1,s2), isContinuationOf(s1,s2)</code>
+                <code>inWay(p,s), inSameWay(p1,p2), intersectionPoint(s1,s2), isCrossing(s1,s2), isNotCrossing(s1,s2), isEndingTo(s1,s2), isContinuationOf(s1,s2)</code>
               </ul>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuKeyword">
@@ -171,11 +178,10 @@
               </span>
               <h3>Keyword OpenStreetMap Operators</h3>
               <ul>
-                <li><code>addTag(osmElement,kValueToAdd,vValueToAdd)</code></li>
-                <li><code>removeTag(osmElement,kValueToRemove,vValueToRemove)</code></li>
-                <li><code>replaceTag(osmElement,kValueToReplace,vValueToReplace)</code></li>
-                <li><code>searchOneTag(osmElement,valueToSearch)</code></li>
-                <li><code>searchTags(osmElement,collectionValueToSearch)</code></li>
+                <li><code>searchKeyword(osmElement,keyword)</code></li>
+                <li><code>searchKeywordSet(osmElement,(keyword1,...., keywordn))</code></li>
+                <li><code>searchTag(osmElement, kValue, vValue)</code></li>
+                <li><code>getTag(osmElement, kValue)</code></li>
               </ul>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuAggregation">
@@ -211,18 +217,18 @@
                   <li><code>metricMin(osmElements,metricOperator)</code></li>
                   <li><code>metricMax(osmElements,metricOperator)</code></li>
                   <li><code>metricSum(osmElements,metricOperator)</code></li>
-                  <li><code>minDistance(osmElements)</code></li>
-                  <li><code>maxDistance(osmElements)</code></li>
+                  <li><code>minDistance(osmElements, osmElement)</code></li>
+                  <li><code>maxDistance(osmElements, osmElement)</code></li>
                 </ul>
                 <li><b>Algebraic Operators</b></li>
                 <ul>
                   <li><code>metricAvg(osmElements,metricOperator)</code></li>
-                  <li><code>avgDistance(osmElements)</code></li>
+                  <li><code>avgDistance(osmElements, osmElement)</code></li>
                   <li><code>metricStdev(osmElements,metricOperator)</code></li>
                   <li><code>metricTopCount(osmElements,metricOperator,k)</code></li>
                   <li><code>metricBottomCount(osmElements,metricOperator,k)</code></li>
-                  <li><code>TopCountDistance(osmElements,k)</code></li>
-                  <li><code>BottomCountDistance(osmElements,k)</code></li>
+                  <li><code>topCountDistance(osmElements, k, osmElement)</code></li>
+                  <li><code>bottomCountDistance(osmelement, k, osmElement)</code></li>
                 </ul>
                 <li><b>Holistic Operators</b></li>
                 <ul>
