@@ -144,10 +144,10 @@
               </span>
               <h3>Index Operators</h3>
               <ul>
-                <li><code>getLayerByName(map, name, distance)</code></li>
-                <li><code>getLayerByElement(map, osmElement, distance)</code></li>
-                <li><code>getElementByName(map, name)</code></li>
-                <li><code>sgetElementsByKeyword(map, keyword)</code></li>
+                <li><code>xosm_rtj:getLayerByName(map, name, distance)</code></li>
+                <li><code>xosm_rtj:getLayerByElement(map, osmElement, distance)</code></li>
+                <li><code>xosm_rtj:getElementByName(map, name)</code></li>
+                <li><code>xosm_rtj:getElementsByKeyword(map, keyword)</code></li>
               </ul>
             </div> 
             <div role="tabpanel" class="tab-pane" id="menuSpatial">
@@ -164,10 +164,10 @@
                   <li>Based on Distance<br/>
                     <code>isIn(s1,s2), isNext(s1,s2), isAway(s1,s2)</code></li>
                     <li>Based on Latitude and Longitude<br/>
-                      <code>furtherNorthPoints(p1,p2), furtherSouthPoints(p1,p2), furtherEastPoints(p1,p2), furtherWestPoints(p1,p2), furtherNorthWays(s1,s2), furtherSouthWays(s1,s2), furtherEastWays(s1,s2), furtherWestWays(s1,s2)</code></li>
+                      <code>xosm_sp:furtherNorthPoints(p1,p2), xosm_sp:furtherSouthPoints(p1,p2), xosm_sp:furtherEastPoints(p1,p2), xosm_sp:furtherWestPoints(p1,p2), xosm_sp:furtherNorthWays(s1,s2), xosm_sp:furtherSouthWays(s1,s2), xosm_sp:furtherEastWays(s1,s2), xosm_sp:furtherWestWays(s1,s2)</code></li>
                 </ul>
                 <li><b>Clementini based OSM Operators</b></li>
-                <code>inWay(p,s), inSameWay(p1,p2), intersectionPoint(s1,s2), isCrossing(s1,s2), isNotCrossing(s1,s2), isEndingTo(s1,s2), isContinuationOf(s1,s2)</code>
+                <code>xosm_sp:inWay(p,s), xosm_sp:inSameWay(p1,p2), xosm_sp:intersectionPoint(s1,s2), ixosm_sp:sCrossing(s1,s2), xosm_sp:isNotCrossing(s1,s2), xosm_sp:isEndingTo(s1,s2), xosm_sp:isContinuationOf(s1,s2)</code>
               </ul>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuKeyword">
@@ -178,10 +178,10 @@
               </span>
               <h3>Keyword OpenStreetMap Operators</h3>
               <ul>
-                <li><code>searchKeyword(osmElement,keyword)</code></li>
-                <li><code>searchKeywordSet(osmElement,(keyword1,...., keywordn))</code></li>
-                <li><code>searchTag(osmElement, kValue, vValue)</code></li>
-                <li><code>getTag(osmElement, kValue)</code></li>
+                <li><code>xosm_kw:searchKeyword(osmElement,keyword)</code></li>
+                <li><code>xosm_kw:searchKeywordSet(osmElement,(keyword1,...., keywordn))</code></li>
+                <li><code>xosm_kw:searchTag(osmElement, kValue, vValue)</code></li>
+                <li><code>xosm_kw:getTag(osmElement, kValue)</code></li>
               </ul>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuAggregation">
@@ -213,29 +213,29 @@
               <ul>
                 <li><b>Distributive Operators</b></li>
                 <ul>
-                  <li><code>topologicalCount(osmElements,osmElement,topologicalRelation)</code></li>
-                  <li><code>metricMin(osmElements,metricOperator)</code></li>
-                  <li><code>metricMax(osmElements,metricOperator)</code></li>
-                  <li><code>metricSum(osmElements,metricOperator)</code></li>
-                  <li><code>minDistance(osmElements, osmElement)</code></li>
-                  <li><code>maxDistance(osmElements, osmElement)</code></li>
+                  <li><code>xosm_ag:topologicalCount(osmElements,osmElement,topologicalRelation)</code></li>
+                  <li><code>xosm_ag:metricMin(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:metricMax(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:metricSum(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:minDistance(osmElements, osmElement)</code></li>
+                  <li><code>xosm_ag:maxDistance(osmElements, osmElement)</code></li>
                 </ul>
                 <li><b>Algebraic Operators</b></li>
                 <ul>
-                  <li><code>metricAvg(osmElements,metricOperator)</code></li>
-                  <li><code>avgDistance(osmElements, osmElement)</code></li>
-                  <li><code>metricStdev(osmElements,metricOperator)</code></li>
-                  <li><code>metricTopCount(osmElements,metricOperator,k)</code></li>
-                  <li><code>metricBottomCount(osmElements,metricOperator,k)</code></li>
-                  <li><code>topCountDistance(osmElements, k, osmElement)</code></li>
-                  <li><code>bottomCountDistance(osmelement, k, osmElement)</code></li>
+                  <li><code>xosm_ag:metricAvg(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:avgDistance(osmElements, osmElement)</code></li>
+                  <li><code>xosm_ag:metricStdev(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:metricTopCount(osmElements,metricOperator,k)</code></li>
+                  <li><code>xosm_ag:metricBottomCount(osmElements,metricOperator,k)</code></li>
+                  <li><code>xosm_ag:topCountDistance(osmElements, k, osmElement)</code></li>
+                  <li><code>xosm_ag:bottomCountDistance(osmelement, k, osmElement)</code></li>
                 </ul>
                 <li><b>Holistic Operators</b></li>
                 <ul>
-                  <li><code>metricMedian(osmElements,metricOperator)</code></li>
-                  <li><code>metricMode(osmElements,metricOperator)</code></li>
-                  <li><code>metricRank(osmElements,metricOperator)</code></li>
-                  <li><code>metricRange(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:metricMedian(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:metricMode(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:metricRank(osmElements,metricOperator)</code></li>
+                  <li><code>xosm_ag:metricRange(osmElements,metricOperator)</code></li>
                 </ul>
               </ul>
             </div>        
