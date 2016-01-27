@@ -1,4 +1,4 @@
-//basex.cloudapp.net:8984/rest devuelve la lista de BD creadas en BaseX 
+//basexserver.cloudapp.net:8984/rest devuelve la lista de BD creadas en BaseX 
 
 
 var controls = [];
@@ -155,7 +155,7 @@ $('document').ready (
 
       function databaseListing(){
 
-       var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
+       var url = 'http://basexserver.cloudapp.net:8984/rest/appSetup/appSetup.xml';
 
        $.ajax({
         url: 'elementsFromAPI.php',
@@ -190,7 +190,7 @@ $('document').ready (
 
     function exampleListQuery(option){
 
-     var url = 'http://basex.cloudapp.net:8984/rest/appSetup/appSetup.xml';
+     var url = 'http://basexserver.cloudapp.net:8984/rest/appSetup/appSetup.xml';
 
      $.ajax({
       url: 'elementsFromAPI.php',
@@ -243,7 +243,7 @@ $('document').ready (
 
     var example = $('#exampleList').val();
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
+    var url = 'http://basexserver.cloudapp.net:8984/rest?run=' + example;
     $('#loader').modal('toggle');
 
     runQuery(url);
@@ -256,14 +256,14 @@ $('document').ready (
 
     // Retrieve OSM data
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
+    var url = 'http://basexserver.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
 
     $('#loader').modal('toggle');
 
     // Cambiar para que sea síncrono
     createDatabase(url); 
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=runningXQueryEval.xq&textArea=' + encodeURIComponent($text); 
+    var url = 'http://basexserver.cloudapp.net:8984/rest?run=runningXQueryEval.xq&textArea=' + encodeURIComponent($text); 
 
     runQuery(url); 
 
@@ -277,7 +277,7 @@ return
 fn:filter(fn:filter($layer ,xosm_sp:furtherNorthWays($street ,?)),
           xosm_kw:searchKeyword(?,"highway"))'
 
-    var url = 'http://basex.cloudapp.net:8984/rest?run=' + example;
+    var url = 'http://basexserver.cloudapp.net:8984/rest?run=' + example;
     $('#loader').modal('toggle');
 
     runQuery(url);
