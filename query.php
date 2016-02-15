@@ -144,7 +144,7 @@ function indexing(){
     var northEast = map.getBounds().getNorthEast();
 
 
-       var url = 'http://basexserver.cloudapp.net:8984/rest?run=indexing.xq' + '&databaseName=' + $('#database').val() + '&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat;  
+       var url = 'http://minerva.ual.es:8984/rest?run=indexing.xq' + '&databaseName=' + $('#database').val() + '&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat;  
 
        $('#spatialIndexModalTitle').text('Creating Spatial Index ' + $('#database').val());
        $('#loader').modal('toggle');
@@ -225,14 +225,14 @@ function scrollToTop() {
 
       // Create database
 
-      var url = 'http://basexserver.cloudapp.net:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
+      var url = 'http://minerva.ual.es:8984/rest?run=creatingDatabase.xq&bbox1=' + southWest.lng + '&bbox2=' + southWest.lat + '&bbox3=' + northEast.lng + '&bbox4=' + northEast.lat; 
 
       // Cambiar para que sea síncrono
       createDatabase(url); 
 
       // Retrieve OSM data
 
-      var url = 'http://basexserver.cloudapp.net:8984/rest?run=runningXQueryEvalrtj.xq&textArea=' + encodeURIComponent(text); 
+      var url = 'http://minerva.ual.es:8984/rest?run=runningXQueryEvalrtj.xq&textArea=' + encodeURIComponent(text); 
 
       runQuery(url);    
     }
@@ -244,7 +244,7 @@ function scrollToTop() {
     //$('#indexing').modal('show');
     
 
-    var url = 'http://basexserver.cloudapp.net:8984/rest?run=' + example;
+    var url = 'http://minerva.ual.es:8984/rest?run=' + example;
 
     runQuery(url);
     }
