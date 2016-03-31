@@ -8,6 +8,14 @@
     <!-- CSS -->
     <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="app.css" rel="stylesheet">
+
+    <!-- CodeMirror to enhance code visualization -->
+    <link rel="stylesheet" href="js/CodeMirror/lib/codemirror.css">
+    <script src="js/CodeMirror/lib/codemirror.js"></script>
+    <script src="js/CodeMirror/mode/xml/xml.js"></script>
+    <script src="js/CodeMirror/mode/xquery/xquery.js"></script>
+    <script src="js/CodeMirror/addon/selection/active-line.js"></script>
+
   </head>
   <body>
     <!-- jQuery -->

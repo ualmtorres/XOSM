@@ -178,7 +178,7 @@ function indexing(){
      }
 
     $('#runXQueryShellbtn').click(function() {
-      if ($('#query').val() == '') {
+      if (XQueryEditor.getValue() == '') {
           showModalAlert('XQuery code is missing', 'XQuery code must me typed');
       }
       else {
@@ -200,6 +200,15 @@ $(function(){
   });
  
   $('.scroll-top-wrapper').on('click', scrollToTop);
+
+  // CodeMirror textarea
+  XQueryEditor = CodeMirror.fromTextArea(document.getElementById("query"), {
+  mode: "application/xml",
+  styleActiveLine: true,
+  lineNumbers: true,
+  lineWrapping: true
+});
+
 });
  
 function scrollToTop() {
@@ -221,7 +230,7 @@ function scrollToTop() {
       var southWest = map.getBounds().getSouthWest();
       var northEast = map.getBounds().getNorthEast();
 
-      var text = $('#query').val();  
+      var text = XQueryEditor.getValue();
 
       // Create database
 
@@ -299,7 +308,7 @@ function scrollToTop() {
   }
 
 function clearQuery() {
-  $('#query').val('');
+  XQueryEditor.getDoc().setValue("");
 }
 
 function removeMapLayers() {
