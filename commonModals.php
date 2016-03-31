@@ -162,12 +162,12 @@
                 <li><b>Coordinate based OSM Operators</b></li>
                 <ul>
                   <li>Based on Distance<br/>
-                    <code>xosm_sp:isIn(s1,s2), xosm_sp:isNext(s1,s2), xosm_sp:isAway(s1,s2)</code></li>
+                    <code>xosm_sp:isIn(s1,s2), xosm_sp:DWithin(s1,s2,d)</code></li>
                     <li>Based on Latitude and Longitude<br/>
                       <code>xosm_sp:furtherNorthPoints(p1,p2), xosm_sp:furtherSouthPoints(p1,p2), xosm_sp:furtherEastPoints(p1,p2), xosm_sp:furtherWestPoints(p1,p2), xosm_sp:furtherNorthWays(s1,s2), xosm_sp:furtherSouthWays(s1,s2), xosm_sp:furtherEastWays(s1,s2), xosm_sp:furtherWestWays(s1,s2)</code></li>
                 </ul>
                 <li><b>Clementini based OSM Operators</b></li>
-                <code>xosm_sp:inWay(p,s), xosm_sp:inSameWay(p1,p2), xosm_sp:intersectionPoint(s1,s2), xosm_sp:isCrossing(s1,s2), xosm_sp:isNotCrossing(s1,s2), xosm_sp:isEndingTo(s1,s2), xosm_sp:isContinuationOf(s1,s2)</code>
+                <code>xosm_sp:wayIn(p,s), xosm_sp:waySame(p1,p2), xosm_sp:intersectionPoint(s1,s2), xosm_sp:crossing(s1,s2), xosm_sp:nonCrossing(s1,s2), xosm_sp:endsAt(s1,s2), xosm_sp:continuationOf(s1,s2)</code>
               </ul>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuKeyword">
