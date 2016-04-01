@@ -43,7 +43,10 @@ include('queries.php');
               <div id="map" style="height: 700px"></div>
             </div>
             <div role="tabpanel" class="tab-pane" id="menuData">
-                <textarea id = 'mapXMLData' ></textarea>
+              <form action="downloadXML.php" method='post'>
+                <textarea id = 'mapXMLData' name = 'mapXMLData'></textarea>
+                <input type = "submit" class="btn btn-primary" value = "Download XML"/>
+              </form>
             </div>            
           </div>
 
