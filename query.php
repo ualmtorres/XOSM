@@ -30,8 +30,23 @@ include('queries.php');
                 </div>
             </div>
 
+          <!-- Nav tabs for Map -->
           <div id = 'datos'></div>
-          <div id="map" style="height: 700px"></div>
+            <ul class="nav nav-tabs" role="tablist">
+              <li role="presentation" class="active"><a href="#menuMap" aria-controls="profile" role="tab" data-toggle="tab">Map</a></li>
+              <li role="presentation"><a href="#menuData" aria-controls="messages" role="tab" data-toggle="tab">Data</a></li>
+          </ul>
+
+          <!-- Tab panes for Map and Data -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="menuMap">
+              <div id="map" style="height: 700px"></div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="menuData">
+                <textarea id = 'mapXMLData' ></textarea>
+            </div>            
+          </div>
+
           <p></p>
         </div>
 
@@ -209,6 +224,15 @@ $(function(){
   lineWrapping: true
 });
 
+  mapXMLData = CodeMirror.fromTextArea(document.getElementById("mapXMLData"), {
+  mode: "application/xml",
+  styleActiveLine: true,
+  lineNumbers: true,
+  lineWrapping: true,
+  autofocus: true,
+  readOnly: true
+});
+
 });
  
 function scrollToTop() {
@@ -290,7 +314,10 @@ function scrollToTop() {
 
         if (data.indexOf("<") > -1) {
           $('#showOSMbtn').show();
-          drawMap(data);        
+          drawMap(data);      
+          //$("#mapXMLData").text(data);  
+          mapXMLData.getDoc().setValue(data);
+          mapXMLData.refresh();
         }
         else {
           removeMapLayers();
