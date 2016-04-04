@@ -221,7 +221,7 @@ $(function(){
 
   // CodeMirror textarea
   XQueryEditor = CodeMirror.fromTextArea(document.getElementById("query"), {
-  mode: "application/xml",
+  mode: "application/xquery",
   styleActiveLine: true,
   lineNumbers: true,
   lineWrapping: true
@@ -232,7 +232,6 @@ $(function(){
   styleActiveLine: true,
   lineNumbers: true,
   lineWrapping: true,
-  autofocus: true,
   readOnly: true
 });
 
@@ -318,9 +317,10 @@ function scrollToTop() {
         if (data.indexOf("<") > -1) {
           $('#showOSMbtn').show();
           drawMap(data);      
-          //$("#mapXMLData").text(data);  
-          mapXMLData.getDoc().setValue(data);
-          mapXMLData.refresh();
+          //$("#mapXMLData").text(data); 
+          updateXMLData(data) 
+//          mapXMLData.getDoc().setValue(data);
+//          mapXMLData.refresh();
         }
         else {
           removeMapLayers();
@@ -336,6 +336,12 @@ function scrollToTop() {
 
     }
   }
+
+function updateXMLData(data) {
+
+  $('#mapXMLData').val(data);
+  mapXMLData.getDoc().setValue(data);
+}
 
 function clearQuery() {
   XQueryEditor.getDoc().setValue("");
